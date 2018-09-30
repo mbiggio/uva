@@ -32,9 +32,10 @@ tuple<int,int,int> rat_attack(const vector<vector<int>> &m, const int d) {
   for (int i=d; i<m.size(); ++i) {
     for (int j=d; j<m[0].size(); ++j) {
       int cur_sum = s[i][j];
-      if (i-2*d-1 >= 0) cur_sum -= s[i-2*d-1][j];
-      if (j-2*d-1 >= 0) cur_sum -= s[i][j-2*d-1];
-      if (i-2*d-1 >= 0 && j-2*d-1 >= 0) cur_sum += s[i-2*d-1][j-2*d-1];
+      bool upper_margin = i-2*d-1 >= 0, lower_margin = j-2*d-1 >= 0;
+      if (upper_margin) cur_sum -= s[i-2*d-1][j];
+      if (lower_margin) cur_sum -= s[i][j-2*d-1];
+      if (upper_margin && lower_margin) cur_sum += s[i-2*d-1][j-2*d-1];
       if (cur_sum > cur_max) {
 	cur_max = cur_sum;
 	cur_x = i-d;
